@@ -2,7 +2,7 @@
 
 # Start of the makefile
 
-object = Global.o TwoBody.o Func.o Newton.o Init.o
+object = *.o
 
 TwoBody: $(object)
 
