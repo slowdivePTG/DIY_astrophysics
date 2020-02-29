@@ -5,7 +5,7 @@ contains
     use Global
     implicit none
 
-    real*8, dimension(2) :: f, r, rs1
+    real*8, dimension(3) :: f, r, rs1
     real*8 :: d1, d2, ms1
     d1 = sqrt(dot_product(r-rs1, r-rs1))
     f = ms1/d1**3*(rs1-r)
@@ -21,17 +21,27 @@ contains
     return
   end function cross_product_2d
 
+  function cross_product_3d(a, b)
+    implicit none
+
+    real*8, dimension(3) :: a, b, cross_product_3d
+    cross_product_3d(1) = a(2)*b(3)-a(3)*b(2)
+    cross_product_3d(2) = a(3)*b(1)-a(1)*b(3)
+    cross_product_3d(3) = a(1)*b(2)-a(2)*b(1)
+    return
+  end function cross_product_3d
+
   subroutine RK8(f, r, v, t, h, rs1, ms1)
     implicit none
 
-    real*8, dimension(2) :: k1_1, k1_2, k1_3, k1_4, k1_5, k1_6, k1_7, k1_8, k1_9, k1_10
-    real*8, dimension(2) :: k2_1, k2_2, k2_3, k2_4, k2_5, k2_6, k2_7, k2_8, k2_9, k2_10
-    real*8, dimension(2) :: dv, dr, r, v, rs1
+    real*8, dimension(3) :: k1_1, k1_2, k1_3, k1_4, k1_5, k1_6, k1_7, k1_8, k1_9, k1_10
+    real*8, dimension(3) :: k2_1, k2_2, k2_3, k2_4, k2_5, k2_6, k2_7, k2_8, k2_9, k2_10
+    real*8, dimension(3) :: dv, dr, r, v, rs1
     real*8 :: t, h, ms1
 
     interface
       function f(r, rs1, ms1)
-        real*8, dimension(2) :: f, r, rs1
+        real*8, dimension(3) :: f, r, rs1
         real*8 :: d1, ms1
       end function f
     end interface

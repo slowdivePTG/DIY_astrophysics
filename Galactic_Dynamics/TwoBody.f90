@@ -8,15 +8,14 @@ program Two_Body
   !real*8, parameter :: Rc = (1+q)*RL1**4/a**3
   !Randomly generated
   !Other initial parameters
-  real*8 :: theta, thetac
+  real*8 :: theta, phi, thetac
   !model parameters
-  real*8 :: t, dt, a
+  real*8 :: v0, t, dt, a
   !Mass
   real*8 :: m1, m2, q
   !velocity & location
-  real*8, dimension(2) :: v1, v2, r1, r2, r1_temp, r2_temp
+  real*8, dimension(3) :: v1, v2, r1, r2, r1_temp, r2_temp, j1, j2
   !angular momentum
-  real*8 :: j1, j2, j
   integer:: i
 
   !output header
@@ -24,6 +23,9 @@ program Two_Body
   open(unit=72, file="./data_task2/J")
 
   q = 1.d-5
+  v0 = 0.8
+  theta = pi/3.
+  phi = pi/6.
 
   !Initial condition
   !!Mass & Radius
@@ -33,24 +35,27 @@ program Two_Body
   !!Position
   r1(1) = -1. / (1 + q)
   r1(2) = 0.
+  r1(3) = 0.
   r2(1) = q * 1. / (1 + q)
   r2(2) = 0.
+  r2(3) = 0.
 
   !!Orbital velocity
-  v1(1) = 0.1
-  v1(2) = 0.2
+  v1(1) = v0*sin(theta)*cos(phi)
+  v1(2) = v0*sin(theta)*sin(phi)
+  v1(3) = v0*cos(theta)
   v2(1) = 0.
   v2(2) = 0.
+  v2(3) = 0.
 
-  j1 = m1*cross_product_2d(r1, v1)
-  j2 = m2*cross_product_2d(r2, v2)
-  j = j1 + j2
+  j1 = m1*cross_product_3d(r1, v1)
+  j2 = m2*cross_product_3d(r2, v2)
 
   t = 0d0
   write(71,'(a)') '#Time, R1x, R1y, R2x, R2y, V1x, V1y, V2x, V2y'
   write(71,'(999E22.12)') t, r1, r2, v1, v2
   write(72,'(a)') '#Time, J1, J2, J'
-  write(72,'(999E22.12)') t, j1, j2, j
+  write(72,'(999E22.12)') t, j1, j2
 
   i = 0
   thetac = 0 !Stop when one orbit completes
@@ -78,12 +83,11 @@ program Two_Body
     thetac = thetac + asin(cross_product_2d(r1,r1_temp)/&
              sqrt(dot_product(r1,r1)*dot_product(r1_temp,r1_temp)))
     
-    j1 = m1*cross_product_2d(r1, v1)
-    j2 = m2*cross_product_2d(r2, v2)
-    j = j1 + j2
+    j1 = m1*cross_product_3d(r1, v1)
+    j2 = m2*cross_product_3d(r2, v2)
     if (mod(i, plot_interval) == 0) then
       write(71,'(999E22.12)') t, r1, r2, v1, v2
-      write(72,'(999E22.12)') t, j1, j2, j
+      write(72,'(999E22.12)') t, j1, j2
     end if
   end do
     
