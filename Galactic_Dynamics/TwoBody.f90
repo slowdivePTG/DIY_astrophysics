@@ -22,7 +22,7 @@ program Two_Body
   open(unit=71, file="./data_task2/R_V")
   open(unit=72, file="./data_task2/J")
 
-  q = 1.d-5
+  q = 1.d-1
   v0 = 0.8
   theta = pi/3.
   phi = pi/6.
@@ -46,7 +46,7 @@ program Two_Body
   v1(3) = v0*cos(theta)
   v2(1) = 0.
   v2(2) = 0.
-  v2(3) = 0.
+  v2(3) = 1.
 
   j1 = m1*cross_product_3d(r1, v1)
   j2 = m2*cross_product_3d(r2, v2)
