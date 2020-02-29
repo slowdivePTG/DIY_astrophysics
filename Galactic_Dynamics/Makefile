@@ -2,11 +2,11 @@
 
 # Start of the makefile
 
-object = Global.o RadialInfall.o Func.o
+object = Global.o TwoBody.o Func.o Newton.o Init.o
 
-ThreeBody: $(object)
+TwoBody: $(object)
 
-	gfortran -o RadialInfall $(object)
+	gfortran -o TwoBody $(object)
 
 Global.mod: Global.o Global.f90
 
@@ -24,15 +24,15 @@ Func.o: Global.mod Func.f90
 
 	gfortran -c Func.f90
 
-RadialInfall.o: Global.mod Func.mod RadialInfall.f90
+TwoBody.o: Global.mod Func.mod TwoBody.f90
 
-	gfortran -c RadialInfall.f90
+	gfortran -c TwoBody.f90
 
 %.o: %.f90
 	fortran -c $<
 
 clean:
 
-	rm *.mod *.o RadialInfall
+	rm *.mod *.o TwoBody
 
 # End of the makefile
