@@ -20,11 +20,11 @@ program Two_Body
   open(unit=72, file="./data_task2/J")
   open(unit=73, file="./data_task2/Para")
 
-  q = 2.d-1
+  q = 2.5d-1
   v10 = 1.d0
   theta1 = pi/3.
   phi1 = pi/3.
-  v20 = 1.d-1
+  v20 = 0.
   theta2 = pi/4.
   phi2 = -pi/12.
 
@@ -68,7 +68,7 @@ program Two_Body
       print *, 'a'
       exit
     end if
-    if (thetac > pi*2) then
+    if (thetac > pi*2*2) then
       print *, 'b'
       exit
     end if

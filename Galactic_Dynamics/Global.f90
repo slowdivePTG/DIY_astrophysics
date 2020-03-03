@@ -8,8 +8,8 @@ module Global
   real*8, parameter :: spy = 31557600.0 !seconds per year
   real*8, parameter :: Temp = 20000. !Surface temperature of the donor (K)
 
-  integer, parameter :: nstep = 10000000
-  integer, parameter :: plot_interval = 1000
+  integer, parameter :: nstep = 20000000
+  integer, parameter :: plot_interval = 2000
   real*8, parameter :: time_interval = 1d-6
 
 end module Global
