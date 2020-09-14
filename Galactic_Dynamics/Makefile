@@ -29,7 +29,7 @@ TwoBody.o: Global.mod Func.mod TwoBody.f90
 	gfortran -c TwoBody.f90
 
 %.o: %.f90
-	fortran -c $<
+	gfortran -c $<
 
 clean:
 
